@@ -2,11 +2,13 @@ import React from "react";
 import "./App.css";
 import ActiveFriends from "./Activefriends";
 import InactiveFriends from "./Inactivefriends";
+import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input";
 
 let counter = 4;
 function generateIncrementalId() {
-    counter++;
-    return counter;
+  counter++;
+  return counter;
 }
 class App extends React.Component {
   constructor(props) {
@@ -16,20 +18,20 @@ class App extends React.Component {
         {
           name: "Lola",
           active: true,
-          id: 1
+          id: 1,
         },
         {
           name: "Tom",
           active: true,
-          id: 2
+          id: 2,
         },
         {
           name: "Jerry",
           active: false,
-          id: 3
-        }
+          id: 3,
+        },
       ],
-      input: ""
+      input: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -41,91 +43,97 @@ class App extends React.Component {
   handleChange(e) {
     const value = e.target.value;
     this.setState({
-      input: value
+      input: value,
     });
   }
 
   handleAddFriends() {
-    this.setState(cur => {
+    this.setState((cur) => {
       return {
         friends: cur.friends.concat([
           {
             name: cur.input,
             active: true,
-            id: generateIncrementalId()
-
-          }
+            id: generateIncrementalId(),
+          },
         ]),
-        input: ""
+        input: "",
       };
     });
   }
 
   markFriendAsInactive(friendToRemove) {
-    this.setState(cur => {
+    this.setState((cur) => {
       return {
-        friends: cur.friends.map(friend => {
-          if (friend.id === friendToRemove.id){
-            return {...friend,active:false}
-          }
-
-          return friend
-        })
+        friends: cur.friends.map((friend) =>
+          friend.id === friendToRemove.id
+            ? { ...friend, active: false }
+            : friend
+        ),
       };
     });
   }
 
-  markFriendAsActive(friendToAdd){
-    this.setState(cur => {
+  markFriendAsActive(friendToAdd) {
+    this.setState((cur) => {
       return {
-        friends: cur.friends.map(friend => {
-          if (friend.id === friendToAdd.id){
-            return {...friend,active:true}
-          }
-
-          return friend
-        })
+        friends: cur.friends.map((friend) =>
+          friend.id === friendToAdd.id ? { ...friend, active: true } : friend
+        ),
       };
     });
   }
+
   render() {
     return (
       <div className="App">
         <h1>Friends App</h1>
-        <input
+
+        <Input
+          id="filled-basic"
+          label="Filled"
+          variant="filled"
           type="text"
           value={this.state.input}
           placeholder="new friends"
           onChange={this.handleChange}
         />
-        <button className="button-add" onClick={this.handleAddFriends}>
-          add new friends
-        </button>
 
-        <div>
-          <button
+        <div className="Button">
+          <Button
+            className="button-add"
+            onClick={this.handleAddFriends}
+            variant="contained"
+            color="primary"
+          >
+            add new friends
+          </Button>
+        </div>
+        <div className="Button">
+          <Button
+            variant="contained"
+            color="secondary"
             className="button-clear"
             onClick={() => {
               this.setState({ friends: [] });
             }}
           >
             Clear All
-          </button>
+          </Button>
         </div>
 
         <hr />
 
         <ActiveFriends
           className="active-friends"
-          list={this.state.friends.filter(friend => friend.active === true)}
+          list={this.state.friends.filter((friend) => friend.active === true)}
           onRemove={this.markFriendAsInactive}
         />
         <hr />
 
         <InactiveFriends
-          list={this.state.friends.filter(friend => friend.active === false)}
+          list={this.state.friends.filter((friend) => friend.active === false)}
           onAdd={this.markFriendAsActive}
-
         />
       </div>
     );

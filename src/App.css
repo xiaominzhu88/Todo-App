@@ -1,37 +1,41 @@
 .App {
+  padding: 2.5em;
+  margin: 0 auto;
   text-align: center;
-  background-color:rgb(178, 187, 139);
-  
-  
+  background-color: rgb(178, 187, 139);
 }
 
-h1{
+h1 {
   font-family: cursive;
   text-shadow: 1px 1px 2px rgb(245, 235, 235);
-  color:blue;
+  color: blue;
   font-weight: 600;
 }
-h2{
+h2 {
   font-family: cursive;
   text-shadow: 1px 1px 2px rgb(245, 235, 235);
-  color:rgb(37, 121, 216);
+  color: rgb(37, 121, 216);
   font-weight: 600;
 }
-input{
-  height:20px;
-  width:200px;
+li {
+  list-style: none;
 }
-button{
-  margin-left:5px;
-  margin-top:10px;
-  
+.inactive {
+  padding: 1em;
 }
 
-.button-clear, .button-add{
-color:red;
-font-weight:500
+.Button {
+  margin: 1em auto;
 }
-.active-friends,.inactive-friends{
+
+.active-friends,
+.inactive-friends {
   font-family: cursive;
-
+}
+@media (max-width: 500px) {
+  h2,
+  li {
+    font-family: monospace;
+    font-size: 1.3em;
+  }
 }
